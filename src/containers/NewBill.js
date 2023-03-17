@@ -16,32 +16,20 @@ export default class NewBill {
     new Logout({ document, localStorage, onNavigate });
   }
 
-  // s
-  testFormat = (str) => {
-    let formats = ["peg", "jpg", "png"];
-    let result = 0;
-    for (let format of formats) {
-      str = str.slice(-3);
-      if (str.includes(format)) {
-        result++;
-      }
-    }
-    if (result > 0) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-  // e
-
   handleChangeFile = (e) => {
     e.preventDefault();
     const file = this.document.querySelector(`input[data-testid="file"]`).files[0];
-    // s
-    if (!this.testFormat(file)) {
+    console.log(file);
+    const invalidMessage = this.document.querySelector(".invalid-message");
+    console.log(invalidMessage);
+
+    if (file.type !== "image/jpeg" && file.type !== "image/png") {
+      invalidMessage.classList.add("display");
+      this.document.querySelector(`input[data-testid="file"]`).value = "";
       throw new Error(`Wrong file format.`);
     }
-    // e
+    invalidMessage.classList.remove("display");
+
     const filePath = e.target.value.split(/\\/g);
     const fileName = filePath[filePath.length - 1];
     const formData = new FormData();
