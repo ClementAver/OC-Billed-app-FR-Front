@@ -81,8 +81,8 @@ export default class {
     if (typeof $("#modaleFileAdmin1").modal === "function") $("#modaleFileAdmin1").modal("show");
   };
 
-  // Displays or hides tickets.
   handleEditTicket(e, bill, bills) {
+    e.stopImmediatePropagation();
     if (this.counter === undefined || this.id !== bill.id) this.counter = 0;
     if (this.id === undefined || this.id !== bill.id) this.id = bill.id;
     if (this.counter % 2 === 0) {
@@ -127,24 +127,23 @@ export default class {
     this.onNavigate(ROUTES_PATH["Dashboard"]);
   };
 
-  // Displays or hides tickets's lists.
   handleShowTickets(e, bills, index) {
+    if (this.counter === undefined || this.index !== index) this.counter = 0;
     if (this.index === undefined || this.index !== index) this.index = index;
-    let arrow = document.getElementById(`arrow-icon${this.index}`);
-    if (arrow.style.transform === "") {
+    if (this.counter % 2 === 0) {
       $(`#arrow-icon${this.index}`).css({ transform: "rotate(0deg)" });
       $(`#status-bills-container${this.index}`).html(cards(filteredBills(bills, getStatus(this.index))));
+      this.counter++;
     } else {
-      $(`#arrow-icon${this.index}`).css({ transform: "" });
+      $(`#arrow-icon${this.index}`).css({ transform: "rotate(90deg)" });
       $(`#status-bills-container${this.index}`).html("");
+      this.counter++;
     }
 
     bills.forEach((bill) => {
       $(`#open-bill${bill.id}`).click((e) => this.handleEditTicket(e, bill, bills));
     });
 
-    console.log(`hShowT() counter : ${this.counter}`);
-    console.log(`hShowT() index : ${this.index}`);
     return bills;
   }
 
