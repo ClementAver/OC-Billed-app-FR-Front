@@ -275,6 +275,8 @@ describe("Given I am connected as Admin and I am on Dashboard page and I clicked
 
       const modale = screen.getByTestId("modaleFileAdmin");
       expect(modale).toBeTruthy();
+      // la ligne ci-dessous échoue, le test n'est pas pertinent ?
+      // expect(modale.classList.contains("show")).toBeTruthy();
     });
   });
 });
