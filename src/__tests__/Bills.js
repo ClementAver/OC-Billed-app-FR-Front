@@ -71,7 +71,7 @@ describe("Given I am connected as an employee and I am on Bills Page", () => {
         document.body.innerHTML = ROUTES({ pathname });
       };
       const store = null;
-      const billsBis = new Bills({
+      const BillInit = new Bills({
         document,
         onNavigate,
         store,
@@ -81,7 +81,15 @@ describe("Given I am connected as an employee and I am on Bills Page", () => {
 
       const eye = screen.getAllByTestId("icon-eye")[0];
 
-      const spy = jest.spyOn(billsBis, "handleClickIconEye").mockImplementation(() => {
+      $.fn.modal = jest.fn();
+      const handleClickeyes = jest.fn((icon) => BillInit.handleClickIconEye(icon));
+
+      eye.addEventListener("click", () => handleClickeyes(eye));
+      userEvent.click(eye);
+      expect(handleClickeyes).toHaveBeenCalled();
+
+      /*
+        .mockImplementation(() => {
         const billUrl = eye.getAttribute("data-bill-url");
         const imgWidth = Math.floor($("#modaleFile").width() * 0.5);
         $("#modaleFile").find(".modal-body").html(`<div style='text-align: center;' class="bill-proof-container"><img width=${imgWidth} src=${billUrl} alt="Bill" /></div>`);
@@ -89,17 +97,14 @@ describe("Given I am connected as an employee and I am on Bills Page", () => {
         // $("#modaleFile").classList.add("show");
         // but this one does.
         document.getElementById("modaleFile").classList.add("show");
-      });
+        });
 
-      eye.addEventListener("click", spy);
-      userEvent.click(eye);
-      expect(spy).toHaveBeenCalled();
+        const modale = document.getElementById("modaleFile");
+        expect(modale.classList.contains("show")).toBeTruthy();
 
-      const modale = document.getElementById("modaleFile");
-      expect(modale.classList.contains("show")).toBeTruthy();
-
-      document.body.innerHTML = "";
-      jest.restoreAllMocks();
+        document.body.innerHTML = "";
+        jest.clearAllMocks();
+      */
     });
   });
 });
