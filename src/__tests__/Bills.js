@@ -70,41 +70,28 @@ describe("Given I am connected as an employee and I am on Bills Page", () => {
       const onNavigate = (pathname) => {
         document.body.innerHTML = ROUTES({ pathname });
       };
-      const store = null;
       const BillInit = new Bills({
         document,
         onNavigate,
-        store,
+        store: mockStore,
         bills,
         localStorage: window.localStorage,
       });
 
       const eye = screen.getAllByTestId("icon-eye")[0];
 
-      $.fn.modal = jest.fn();
+      $.fn.modal = jest.fn(() => document.getElementById("modaleFile").classList.add("show"));
       const handleClickeyes = jest.fn((icon) => BillInit.handleClickIconEye(icon));
 
       eye.addEventListener("click", () => handleClickeyes(eye));
       userEvent.click(eye);
       expect(handleClickeyes).toHaveBeenCalled();
 
-      /*
-        .mockImplementation(() => {
-        const billUrl = eye.getAttribute("data-bill-url");
-        const imgWidth = Math.floor($("#modaleFile").width() * 0.5);
-        $("#modaleFile").find(".modal-body").html(`<div style='text-align: center;' class="bill-proof-container"><img width=${imgWidth} src=${billUrl} alt="Bill" /></div>`);
-        // the line underneath does not works.
-        // $("#modaleFile").classList.add("show");
-        // but this one does.
-        document.getElementById("modaleFile").classList.add("show");
-        });
+      const modale = document.getElementById("modaleFile");
+      expect(modale.classList.contains("show")).toBeTruthy();
 
-        const modale = document.getElementById("modaleFile");
-        expect(modale.classList.contains("show")).toBeTruthy();
-
-        document.body.innerHTML = "";
-        jest.clearAllMocks();
-      */
+      document.body.innerHTML = "";
+      jest.clearAllMocks();
     });
   });
 });
@@ -123,11 +110,11 @@ describe("Given I am connected as an employee and I am on Bills Page", () => {
       const onNavigate = (pathname) => {
         document.body.innerHTML = ROUTES({ pathname });
       };
-      const store = null;
+
       const billsBis = new Bills({
         document,
         onNavigate,
-        store,
+        store: mockStore,
         bills,
         localStorage: window.localStorage,
       });
@@ -160,7 +147,6 @@ describe("Given I am a user connected as Employee", () => {
       document.body.append(root);
       router();
       window.onNavigate(ROUTES_PATH.Bills);
-      // await waitFor(() => screen.getByText(/Mes notes de frais/i));
       await waitFor(() => screen.getByTestId("btn-new-bill"));
       const bill = screen.getByText("Hôtel et logement");
       expect(bill).toBeTruthy();

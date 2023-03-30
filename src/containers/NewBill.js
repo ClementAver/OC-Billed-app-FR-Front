@@ -19,14 +19,12 @@ export default class NewBill {
   handleChangeFile = (e) => {
     e.preventDefault();
     const file = this.document.querySelector(`input[data-testid="file"]`).files[0];
-    console.log(file);
     const invalidMessage = this.document.querySelector(".invalid-message");
-    console.log(invalidMessage);
 
     if (file.type !== "image/jpeg" && file.type !== "image/png") {
       invalidMessage.classList.add("display");
       this.document.querySelector(`input[data-testid="file"]`).value = "";
-      throw new Error(`Wrong file format.`);
+      return;
     }
     invalidMessage.classList.remove("display");
 
@@ -46,7 +44,6 @@ export default class NewBill {
         },
       })
       .then(({ fileUrl, key }) => {
-        console.log(fileUrl);
         this.billId = key;
         this.fileUrl = fileUrl;
         this.fileName = fileName;
@@ -55,7 +52,6 @@ export default class NewBill {
   };
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log('e.target.querySelector(`input[data-testid="datepicker"]`).value', e.target.querySelector(`input[data-testid="datepicker"]`).value);
     const email = JSON.parse(localStorage.getItem("user")).email;
     const bill = {
       email,
