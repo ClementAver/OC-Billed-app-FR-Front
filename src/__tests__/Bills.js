@@ -41,7 +41,7 @@ describe("Given I am connected as an employee", () => {
 
     test("Then bill icon in vertical layout should be highlighted", async () => {
       const windowIcon = screen.getByTestId("icon-window");
-      //to-do write expect expression
+      // Expects the window icon to got the active-icon class.
       expect(windowIcon.classList.contains("active-icon")).toBeTruthy();
     });
 
@@ -51,6 +51,7 @@ describe("Given I am connected as an employee", () => {
       const dates = sortedBills.map((bill) => bill.date);
       const antiChrono = (a, b) => (a.date < b.date ? 1 : -1);
       const datesSorted = dates.sort(antiChrono);
+      // Expects the two results to match.
       expect(dates).toEqual(datesSorted);
     });
   });
@@ -80,6 +81,7 @@ describe("Given I am connected as an employee and I am on Bills Page", () => {
 
       const eye = screen.getAllByTestId("icon-eye")[0];
 
+      // jQuery not being supported, we have to mock its functions too.
       $.fn.modal = jest.fn(() => document.getElementById("modaleFile").classList.add("show"));
       const handleClickeyes = jest.fn((icon) => BillInit.handleClickIconEye(icon));
 
@@ -88,6 +90,7 @@ describe("Given I am connected as an employee and I am on Bills Page", () => {
       expect(handleClickeyes).toHaveBeenCalled();
 
       const modale = document.getElementById("modaleFile");
+      // Expects the modale to be displayed (by having the "show" class).
       expect(modale.classList.contains("show")).toBeTruthy();
 
       document.body.innerHTML = "";
@@ -121,7 +124,7 @@ describe("Given I am connected as an employee and I am on Bills Page", () => {
 
       const btnNewBill = screen.getByTestId("btn-new-bill");
 
-      // by spying it without a .mockImplementation(), we call the real function but are able to track its calls, e.g.
+      // By spying it without a .mockImplementation(), we call the real function but are able to track its calls.
       const spy = jest.spyOn(billsBis, "handleClickNewBill");
 
       btnNewBill.addEventListener("click", spy);
@@ -129,6 +132,7 @@ describe("Given I am connected as an employee and I am on Bills Page", () => {
       expect(spy).toHaveBeenCalled();
 
       const title = screen.getByText("Envoyer une note de frais");
+      // Expects the title to be targetable.
       expect(title).toBeTruthy();
 
       document.body.innerHTML = "";
@@ -149,6 +153,7 @@ describe("Given I am a user connected as Employee", () => {
       window.onNavigate(ROUTES_PATH.Bills);
       await waitFor(() => screen.getByTestId("btn-new-bill"));
       const bill = screen.getByText("Hôtel et logement");
+      // Expects this Element to be targetable.
       expect(bill).toBeTruthy();
     });
   });
@@ -180,6 +185,7 @@ describe("Given I am a user connected as Employee", () => {
       window.onNavigate(ROUTES_PATH.Bills);
       await new Promise(process.nextTick);
       const message = await screen.getByText(/Erreur 404/);
+      // Expects this Element to be targetable.
       expect(message).toBeTruthy();
     });
 
@@ -194,6 +200,7 @@ describe("Given I am a user connected as Employee", () => {
       window.onNavigate(ROUTES_PATH.Bills);
       await new Promise(process.nextTick);
       const message = await screen.getByText(/Erreur 500/);
+      // Expects this Element to be targetable.
       expect(message).toBeTruthy();
     });
   });
