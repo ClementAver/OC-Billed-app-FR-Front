@@ -24,6 +24,8 @@ Billed is a SaaS application for HR departments. Our task was to test and debug 
   <img src="src/assets/README/Screenshot-admin.png" alt="Screenshot of the admin side" width="600"/>
 </p>
 
+<br/><br/>
+
 ## L'architecture du projet :
 Ce projet, dit frontend, est connecté à un service API backend que vous devez aussi lancer en local.
 
