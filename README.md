@@ -1,3 +1,28 @@
+# Billed
+
+<div>
+<img alt="Static Badge" src="https://img.shields.io/badge/HTML%205-orange">
+<img alt="Static Badge" src="https://img.shields.io/badge/CSS%203-blue">
+<img alt="Static Badge" src="https://img.shields.io/badge/JavaScript-yellow">
+<img alt="Static Badge" src="https://img.shields.io/badge/Jest-99425b">
+<img alt="Static Badge" src="https://img.shields.io/badge/Testing%20Library-%23fc0335">
+</div>
+
+Billed is a SaaS application for HR departments. Our task was to test and debug the 'expense claim' feature of the application. We also had to provide an E2E test plan to guide a colleague through another set of tests. This project allowed us to discover Jest, Testing Library and learn about TDD through the associated courses.
+
+<br/><br/>
+
+<p align="center">
+  <img src="src/assets/README/Screenshot-login.png" alt="Screenshot of the login page" width="600"/>
+</p>
+
+<p align="center">
+  <img src="src/assets/README/Screenshot-employee.png" alt="Screenshot of the employee side" width="600"/>
+</p>
+
+<p align="center">
+  <img src="src/assets/README/Screenshot-admin.png" alt="Screenshot of the admin side" width="600"/>
+</p>
 
 ## L'architecture du projet :
 Ce projet, dit frontend, est connecté à un service API backend que vous devez aussi lancer en local.
